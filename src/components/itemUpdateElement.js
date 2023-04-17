@@ -4,16 +4,15 @@ import "../styles/ItemUpdateElement.css";
 import { useNavigate } from "react-router-dom";
 
 const ItemUpdateElement = (props) => {
-  const [discription, setDiscription] = useState("");
-  const [category, setCategory] = useState("");
-  const [type, setType] = useState("");
-  const [status, setStatus] = useState("");
-  const [price, setPrice] = useState("");
+  const itemId = props.itemId;
+  const [itemDescription, setDescription] = useState(props.itemDescription);
+  const [category, setCategory] = useState(props.category);
+  const [type, setType] = useState(props.type);
+  const [status, setStatus] = useState(props.status);
+  const [price, setPrice] = useState(props.price);
 
   const hideBox = () => {
     props.setIsShow(0);
-    props.setTitle("");
-    props.setTemp([]);
   };
 
   async function updateItem(event) {
@@ -24,13 +23,23 @@ const ItemUpdateElement = (props) => {
       headers: {
         "Content-Type": "application/json",
       },
+      body: JSON.stringify({
+        itemId,
+        itemDescription,
+        category,
+        type,
+        status,
+        price,
+      }),
     });
     const data = await response.json();
   }
 
   return (
     <div className={`upload--container box--display${props.isShow}`}>
-      <div className="box--close"></div>
+      <div className="box--close">
+        <button onClick={hideBox}>Cut</button>
+      </div>
       <div className="upload--form--div">
         <form action="" className="upload--form" onSubmit={updateItem}>
           <div className="upload--form--box">
@@ -40,11 +49,11 @@ const ItemUpdateElement = (props) => {
                 <input
                   type="text"
                   onChange={(e) => {
-                    setDiscription(e.target.value);
+                    setDescription(e.target.value);
                   }}
                   name="fullName"
                   placeholder="Enter Discription"
-                  value={discription}
+                  value={itemDescription}
                   required
                 />
               </div>

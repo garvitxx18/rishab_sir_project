@@ -1,20 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/itemsElement.css";
+import ItemUpdateElement from "./itemUpdateElement";
 
 const ItemsElement = (props) => {
-  const {
-    itemId,
-    itemDescription,
-    category,
-    type,
-    status,
-    price,
-    index,
-    showBox,
-  } = props;
+  const { itemId, itemDescription, category, type, status, price, index } =
+    props;
   console.log(props);
   let parity = 1;
-  if (index % 2 == 1) {
+  if (index % 2 === 1) {
     parity = 0;
   }
   async function deletItem(event) {
@@ -29,18 +22,10 @@ const ItemsElement = (props) => {
     const data = await response.json();
     console.log(data);
   }
-  //   async function updateItem(event) {
-  //     event.preventDefault();
-  //     console.log(itemId);
-  //     const response = await fetch("http://localhost:8080/items/{itemId}", {
-  //       method: "PUT",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     });
-  //     const data = await response.json();
-  //     console.log(data);
-  //   }
+  const [isShow, setIsShow] = useState(0);
+  const showBox = () => {
+    setIsShow(1);
+  };
   return (
     <div className="card--container">
       <div className={`card--status--title--box bgColor${parity}`}>
@@ -69,6 +54,16 @@ const ItemsElement = (props) => {
           <button onClick={deletItem}>Delet</button>
         </div>
       </div>
+      <ItemUpdateElement
+        isShow={isShow}
+        setIsShow={setIsShow}
+        showBox={showBox}
+        itemDescription={itemDescription}
+        category={category}
+        type={type}
+        status={status}
+        price={price}
+      />
     </div>
   );
 };

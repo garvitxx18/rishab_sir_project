@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Menu from "./menu";
 import ItemsElement from "./itemsElement";
-import ItemUpdateElement from "./itemUpdateElement";
 import "../styles/items.css";
 
 const Items = () => {
@@ -41,15 +40,20 @@ const Items = () => {
     },
   ]);
 
-  const [isShow, setIsShow] = useState(0);
-  const [title, setTitle] = useState("");
+  useEffect(() => {
+    getItems();
+  }, []);
 
-  const showBox = () => {
-    setIsShow(1);
-  };
-  function showBox2(title1) {
-    setIsShow(1);
-    setTitle(title1);
+  async function getItems(event) {
+    event.preventDefault();
+    const response = await fetch("http://localhost:8099/items", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.json();
+    setItemsData(data);
   }
 
   return (
@@ -90,16 +94,9 @@ const Items = () => {
                   status={card.status}
                   price={card.price}
                   index={index}
-                  showBox={showBox}
                 />
               ))}
             </div>
-            <ItemUpdateElement
-              isShow={isShow}
-              setIsShow={setIsShow}
-              title={title}
-              setTitle={setTitle}
-            />
           </div>
         </div>
       </div>

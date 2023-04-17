@@ -47,7 +47,7 @@ const AvailabilityPage = () => {
   }, []);
 
   async function getAvailabilityArray() {
-    const response = await fetch("http://localhost:8080/availability", {
+    const response = await fetch("http://localhost:8099/availability", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -70,7 +70,6 @@ const AvailabilityPage = () => {
   });
   return (
     <div className="status1--container">
-      {/* <Menu item="status1" className="status1--menu" /> */}
       <Menu />
       <div className="status1--rightSection">
         <div className="status1--rightSection--heading">AVAILABILITY</div>

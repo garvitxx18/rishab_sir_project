@@ -61,7 +61,7 @@ const TransactionPage = () => {
   }, []);
 
   async function getTransactionArray() {
-    const response = await fetch("http://localhost:8080/transaction", {
+    const response = await fetch("http://localhost:8099/transaction", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
