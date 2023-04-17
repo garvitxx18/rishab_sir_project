@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import "../styles/TransactionPage.css";
 import CardElement2 from "./CardElement2";
-import Menu from "./Menu";
+import Menu from "./menu";
 
 const TransactionPage = () => {
   const [transactionArray, setTransactionArray] = useState([
